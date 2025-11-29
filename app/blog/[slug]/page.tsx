@@ -16,6 +16,58 @@ import { PromoContent } from "@/components/promo-content";
 import { getAuthor, isValidAuthor } from "@/lib/authors";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import { HashScrollHandler } from "@/components/hash-scroll-handler";
+import { CommentThread, CommentType} from "@/components/comment";
+
+// Sample data for the discussion thread
+const sampleComments: CommentType[] = [
+  {
+    id: 1,
+    author: "techguru42",
+    content: "This is a really interesting discussion about React components. I've been working with similar patterns and found that proper state management is crucial for nested structures like this.",
+    timestamp: "2h",
+    upvotes: 24,
+    downvotes: 2,
+    replies: [
+      {
+        id: 2,
+        author: "devninja",
+        content: "Absolutely agree! What state management solution do you recommend for deeply nested components?",
+        timestamp: "1h",
+        upvotes: 8,
+        downvotes: 0,
+        replies: [
+          {
+            id: 3,
+            author: "techguru42",
+            content: "I usually go with Zustand for simpler cases, but Redux Toolkit for more complex applications. The key is avoiding prop drilling.",
+            timestamp: "45m",
+            upvotes: 12,
+            downvotes: 1,
+            replies: []
+          }
+        ]
+      },
+      {
+        id: 4,
+        author: "reactfan",
+        content: "Have you tried using React Context for this? I find it works well for theme management in nested components.",
+        timestamp: "30m",
+        upvotes: 5,
+        downvotes: 0,
+        replies: []
+      }
+    ]
+  },
+  {
+    id: 5,
+    author: "designerdev",
+    content: "The UI looks great! Really clean design. How did you handle the responsive behavior on mobile?",
+    timestamp: "3h",
+    upvotes: 15,
+    downvotes: 0,
+    replies: []
+  }
+];
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -128,6 +180,9 @@ export default async function BlogPost({ params }: PageProps) {
               currentSlug={[slug]}
               currentTags={page.data.tags}
             />
+          </div>
+          <div>
+            <CommentThread initialComments={sampleComments} />
           </div>
         </main>
 
