@@ -1,6 +1,9 @@
-import Link from "next/link";
+"use client"
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import CommentButton from "./comment-button";
+import LikeDisclikeButton from "./like-button";
 
 interface BlogCardProps {
   url: string;
@@ -19,9 +22,10 @@ export function BlogCard({
   thumbnail,
   showRightBorder = true,
 }: BlogCardProps) {
+  const router = useRouter()
   return (
-    <Link
-      href={url}
+    <div
+      onClick={() => router.push(url)}
       className={cn(
         "group block relative before:absolute before:-left-0.5 before:top-0 before:z-10 before:h-screen before:w-px before:bg-border before:content-[''] after:absolute after:-top-0.5 after:left-0 after:z-0 after:h-px after:w-screen after:bg-border after:content-['']",
         showRightBorder && "md:border-r border-border border-b-0"
@@ -49,7 +53,12 @@ export function BlogCard({
             {date}
           </time>
         </div>
+
+        <div className="p-6 flex justify-between gap-2">
+          <LikeDisclikeButton />
+          <CommentButton />
+        </div>
       </div>
-    </Link>
+    </div>
   );
 }
