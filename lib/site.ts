@@ -1,8 +1,8 @@
 export const siteConfig = {
-  name: "Magic UI Blog",
-  url: "https://blog-magicui.vercel.app",
+  name: "Go Nomad",
+  url: "https://gonomad.uz",
   description:
-    "Modern React and web development tutorials, insights, and best practices.",
+    "Go Nomad - birgalikga digital nomadlikgacha bo'lgan masofa..",
 };
 
 export type SiteConfig = typeof siteConfig;

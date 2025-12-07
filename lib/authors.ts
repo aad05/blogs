@@ -6,14 +6,9 @@ export interface Author {
 
 export const authors: Record<string, Author> = {
   dillion: {
-    name: "Dillion Verma",
+    name: "Asadbek Abduvoitov",
     position: "Software Engineer",
     avatar: "/authors/dillion.png",
-  },
-  arghya: {
-    name: "Arghya Das",
-    position: "Design System Engineer",
-    avatar: "/authors/arghya.png",
   },
 } as const;
 

@@ -18,6 +18,7 @@ import { getAuthor, isValidAuthor } from "@/lib/authors";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import { HashScrollHandler } from "@/components/hash-scroll-handler";
 import { CommentThread, CommentType} from "@/components/comment";
+import { siteConfig } from "@/lib/site";
 
 // Sample data for the discussion thread
 const sampleComments: CommentType[] = [
@@ -102,29 +103,44 @@ export async function generateMetadata(
     return {};
   }
 
-  const { title, description, date, thumbnail } = page.data as {
+  const { title, description, date, thumbnail, tags } = page.data as {
     title?: string;
     description?: string;
     date?: string;
     thumbnail?: string;
+    tags?: string[];
   };
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || siteConfig.url;
   const url = baseUrl ? `${baseUrl}/blog/${slug}` : undefined;
+  const metaTitle = title ?? siteConfig.name;
+  const metaDescription = description ?? siteConfig.description;
 
   return {
-    title,
-    description,
+    title: metaTitle,
+    description: metaDescription,
+    keywords: tags && tags.length > 0 ? tags : undefined,
+    robots: {
+      index: true,
+      follow: true,
+    },
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
-      title,
-      description,
-      type: "article",
+      title: metaTitle,
+      description: metaDescription,
       url,
+      siteName: siteConfig.name,
+      locale: "en_US",
+      type: "article",
       images: thumbnail
         ? [
             {
               url: thumbnail,
-              alt: title,
+              alt: metaTitle,
+              width: 1200,
+              height: 630,
             },
           ]
         : undefined,
@@ -132,13 +148,13 @@ export async function generateMetadata(
     },
     twitter: {
       card: thumbnail ? "summary_large_image" : "summary",
-      title,
-      description,
+      title: metaTitle,
+      description: metaDescription,
       images: thumbnail ? [thumbnail] : undefined,
     },
-    alternates: {
-      canonical: url,
-    },
+    category: "Blog",
+    applicationName: siteConfig.name,
+    publisher: siteConfig.name,
   };
 }
 

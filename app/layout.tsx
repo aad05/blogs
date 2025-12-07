@@ -3,7 +3,6 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { ThemeProvider } from "@/components/theme-provider";
 import { siteConfig } from "@/lib/site";
-import { metadataKeywords } from "./metadata";
 import { SiteNav } from "@/components/site-nav";
 import Footer from "@/components/footer";
 import "@/app/globals.css";
@@ -19,7 +18,6 @@ export const metadata: Metadata = {
     template: `%s - ${siteConfig.name}`,  
   },
   description: siteConfig.description,
-  keywords: metadataKeywords,
 };
 
 export default function RootLayout({
