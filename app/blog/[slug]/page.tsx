@@ -7,6 +7,7 @@ import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
+import type { Metadata } from "next";
 
 import { TableOfContents } from "@/components/table-of-contents";
 import { MobileTableOfContents } from "@/components/mobile-toc";
@@ -85,6 +86,61 @@ const formatDate = (date: Date): string => {
     day: "numeric",
   });
 };
+
+export async function generateMetadata(
+  { params }: { params: { slug: string } }
+): Promise<Metadata> {
+  const { slug } = params;
+
+  if (!slug || slug.length === 0) {
+    return {};
+  }
+
+  const page = blogSource.getPage([slug]);
+
+  if (!page) {
+    return {};
+  }
+
+  const { title, description, date, thumbnail } = page.data as {
+    title?: string;
+    description?: string;
+    date?: string;
+    thumbnail?: string;
+  };
+
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
+  const url = baseUrl ? `${baseUrl}/blog/${slug}` : undefined;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      url,
+      images: thumbnail
+        ? [
+            {
+              url: thumbnail,
+              alt: title,
+            },
+          ]
+        : undefined,
+      publishedTime: date,
+    },
+    twitter: {
+      card: thumbnail ? "summary_large_image" : "summary",
+      title,
+      description,
+      images: thumbnail ? [thumbnail] : undefined,
+    },
+    alternates: {
+      canonical: url,
+    },
+  };
+}
 
 export default async function BlogPost({ params }: PageProps) {
   const { slug } = await params;
