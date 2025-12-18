@@ -54,10 +54,10 @@ export function BlogCard({
           </time>
         </div>
 
-        <div className="p-6 flex justify-between gap-2">
+        {/* <div className="p-6 flex justify-between gap-2">
           <LikeDisclikeButton />
           <CommentButton />
-        </div>
+        </div> */}
       </div>
     </div>
   );
