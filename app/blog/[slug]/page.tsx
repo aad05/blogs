@@ -17,7 +17,7 @@ import { PromoContent } from "@/components/promo-content";
 import { getAuthor, isValidAuthor } from "@/lib/authors";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import { HashScrollHandler } from "@/components/hash-scroll-handler";
-import { CommentThread, CommentType} from "@/components/comment";
+import { CommentType} from "@/components/comment";
 import { siteConfig } from "@/lib/site";
 
 // Sample data for the discussion thread
@@ -254,7 +254,7 @@ export default async function BlogPost({ params }: PageProps) {
             />
           </div>
           <div>
-            <CommentThread initialComments={sampleComments} />
+            {/* <CommentThread initialComments={sampleComments} /> */}
           </div>
         </main>
 
