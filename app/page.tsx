@@ -89,7 +89,7 @@ export default async function HomePage({
         <div className="max-w-7xl mx-auto w-full">
           <div className="flex flex-col gap-2">
             <h1 className="font-medium text-4xl md:text-5xl tracking-tighter">
-              Asadbek's Blog 
+              Nomad's Blog
             </h1>
             <p className="text-muted-foreground text-sm md:text-base lg:text-lg">
               My personal notes on coding, life, and continuous improvement.
@@ -110,9 +110,8 @@ export default async function HomePage({
       <div className="max-w-7xl mx-auto w-full px-6 lg:px-0">
         <Suspense fallback={<div>Loading articles...</div>}>
           <div
-            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 relative overflow-hidden border-x border-border ${
-              filteredBlogs.length < 4 ? "border-b" : "border-b-0"
-            }`}
+            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 relative overflow-hidden border-x border-border ${filteredBlogs.length < 4 ? "border-b" : "border-b-0"
+              }`}
           >
             {filteredBlogs.map((blog) => {
               const date = new Date(blog.data.date);
